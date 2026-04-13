@@ -1,4 +1,4 @@
-module grpc-shop
+module github.com/AndreyLebedev1998/shop-gRPC-product
 
 go 1.26.1
 
