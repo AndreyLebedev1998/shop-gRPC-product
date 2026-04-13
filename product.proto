@@ -10,6 +10,7 @@ message Product {
     int64 category_id = 3;
     string category_name = 4;
     string image_url = 5;
+    int64 availability_of_pieces = 6;
 }
 
 message OrderItem {

@@ -22,14 +22,15 @@ const (
 )
 
 type Product struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	ProductName   string                 `protobuf:"bytes,2,opt,name=product_name,json=productName,proto3" json:"product_name,omitempty"`
-	CategoryId    int64                  `protobuf:"varint,3,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	CategoryName  string                 `protobuf:"bytes,4,opt,name=category_name,json=categoryName,proto3" json:"category_name,omitempty"`
-	ImageUrl      string                 `protobuf:"bytes,5,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state                protoimpl.MessageState `protogen:"open.v1"`
+	Id                   int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	ProductName          string                 `protobuf:"bytes,2,opt,name=product_name,json=productName,proto3" json:"product_name,omitempty"`
+	CategoryId           int64                  `protobuf:"varint,3,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	CategoryName         string                 `protobuf:"bytes,4,opt,name=category_name,json=categoryName,proto3" json:"category_name,omitempty"`
+	ImageUrl             string                 `protobuf:"bytes,5,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	AvailabilityOfPieces int64                  `protobuf:"varint,6,opt,name=availability_of_pieces,json=availabilityOfPieces,proto3" json:"availability_of_pieces,omitempty"`
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
 }
 
 func (x *Product) Reset() {
@@ -95,6 +96,13 @@ func (x *Product) GetImageUrl() string {
 		return x.ImageUrl
 	}
 	return ""
+}
+
+func (x *Product) GetAvailabilityOfPieces() int64 {
+	if x != nil {
+		return x.AvailabilityOfPieces
+	}
+	return 0
 }
 
 type OrderItem struct {
@@ -249,14 +257,15 @@ var File_product_proto protoreflect.FileDescriptor
 
 const file_product_proto_rawDesc = "" +
 	"\n" +
-	"\rproduct.proto\x12\bproducts\"\x9f\x01\n" +
+	"\rproduct.proto\x12\bproducts\"\xd5\x01\n" +
 	"\aProduct\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12!\n" +
 	"\fproduct_name\x18\x02 \x01(\tR\vproductName\x12\x1f\n" +
 	"\vcategory_id\x18\x03 \x01(\x03R\n" +
 	"categoryId\x12#\n" +
 	"\rcategory_name\x18\x04 \x01(\tR\fcategoryName\x12\x1b\n" +
-	"\timage_url\x18\x05 \x01(\tR\bimageUrl\"\\\n" +
+	"\timage_url\x18\x05 \x01(\tR\bimageUrl\x124\n" +
+	"\x16availability_of_pieces\x18\x06 \x01(\x03R\x14availabilityOfPieces\"\\\n" +
 	"\tOrderItem\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\x03R\tproductId\x12\x1a\n" +
