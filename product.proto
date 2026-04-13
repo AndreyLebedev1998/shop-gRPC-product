@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package products;
 
-option go_package = "grpc-shop/productpb;productpb";
+option go_package = "github.com/AndreyLebedev1998/shop-gRPC-product/productpb;productpb";
 
 message Product {
     int64 id = 1;

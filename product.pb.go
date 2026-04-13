@@ -268,7 +268,7 @@ const file_product_proto_rawDesc = "" +
 	"\x13GetProductsResponse\x12-\n" +
 	"\bproducts\x18\x01 \x03(\v2\x11.products.ProductR\bproducts2b\n" +
 	"\x0fProductsService\x12O\n" +
-	"\x10GetProductsByIds\x12\x1c.products.GetProductsRequest\x1a\x1d.products.GetProductsResponseB\x1fZ\x1dgrpc-shop/productpb;productpbb\x06proto3"
+	"\x10GetProductsByIds\x12\x1c.products.GetProductsRequest\x1a\x1d.products.GetProductsResponseBDZBgithub.com/AndreyLebedev1998/shop-gRPC-product/productpb;productpbb\x06proto3"
 
 var (
 	file_product_proto_rawDescOnce sync.Once
