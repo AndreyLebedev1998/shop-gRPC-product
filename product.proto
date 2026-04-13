@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package products;
+
+option go_package = "grpc-shop/productpb;productpb";
+
+message Product {
+    int64 id = 1;
+    string product_name = 2;
+    int64 category_id = 3;
+    string category_name = 4;
+    string image_url = 5;
+}
+
+message OrderItem {
+    int64 product_id = 1;
+    int64 quantity = 2;
+    double price = 3;
+}
+
+message GetProductsRequest {
+    repeated int64 product_ids = 1;
+}
+
+message GetProductsResponse {
+    repeated Product products = 1;
+}
+
+service ProductsService {
+    rpc GetProductsByIds (GetProductsRequest) returns (GetProductsResponse);
+}
