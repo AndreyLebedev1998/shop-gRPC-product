@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ProductsService_GetProductsByIds_FullMethodName = "/products.ProductsService/GetProductsByIds"
+	ProductsService_GetProductsByIds_FullMethodName           = "/products.ProductsService/GetProductsByIds"
+	ProductsService_UpdateProductQuantityByIds_FullMethodName = "/products.ProductsService/UpdateProductQuantityByIds"
 )
 
 // ProductsServiceClient is the client API for ProductsService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProductsServiceClient interface {
 	GetProductsByIds(ctx context.Context, in *GetProductsRequest, opts ...grpc.CallOption) (*GetProductsResponse, error)
+	UpdateProductQuantityByIds(ctx context.Context, in *UpdateProductQuantityRequest, opts ...grpc.CallOption) (*UpdateProductQuantityResponse, error)
 }
 
 type productsServiceClient struct {
@@ -47,11 +49,22 @@ func (c *productsServiceClient) GetProductsByIds(ctx context.Context, in *GetPro
 	return out, nil
 }
 
+func (c *productsServiceClient) UpdateProductQuantityByIds(ctx context.Context, in *UpdateProductQuantityRequest, opts ...grpc.CallOption) (*UpdateProductQuantityResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateProductQuantityResponse)
+	err := c.cc.Invoke(ctx, ProductsService_UpdateProductQuantityByIds_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductsServiceServer is the server API for ProductsService service.
 // All implementations must embed UnimplementedProductsServiceServer
 // for forward compatibility.
 type ProductsServiceServer interface {
 	GetProductsByIds(context.Context, *GetProductsRequest) (*GetProductsResponse, error)
+	UpdateProductQuantityByIds(context.Context, *UpdateProductQuantityRequest) (*UpdateProductQuantityResponse, error)
 	mustEmbedUnimplementedProductsServiceServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedProductsServiceServer struct{}
 
 func (UnimplementedProductsServiceServer) GetProductsByIds(context.Context, *GetProductsRequest) (*GetProductsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetProductsByIds not implemented")
+}
+func (UnimplementedProductsServiceServer) UpdateProductQuantityByIds(context.Context, *UpdateProductQuantityRequest) (*UpdateProductQuantityResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateProductQuantityByIds not implemented")
 }
 func (UnimplementedProductsServiceServer) mustEmbedUnimplementedProductsServiceServer() {}
 func (UnimplementedProductsServiceServer) testEmbeddedByValue()                         {}
@@ -104,6 +120,24 @@ func _ProductsService_GetProductsByIds_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductsService_UpdateProductQuantityByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateProductQuantityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServiceServer).UpdateProductQuantityByIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductsService_UpdateProductQuantityByIds_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServiceServer).UpdateProductQuantityByIds(ctx, req.(*UpdateProductQuantityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductsService_ServiceDesc is the grpc.ServiceDesc for ProductsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +148,10 @@ var ProductsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProductsByIds",
 			Handler:    _ProductsService_GetProductsByIds_Handler,
+		},
+		{
+			MethodName: "UpdateProductQuantityByIds",
+			Handler:    _ProductsService_UpdateProductQuantityByIds_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

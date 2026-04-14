@@ -13,6 +13,11 @@ message Product {
     int64 availability_of_pieces = 6;
 }
 
+message UpdateProductQuantity {
+    int64 product_id = 1;
+    int64 quantity = 2;
+}
+
 message OrderItem {
     int64 product_id = 1;
     int64 quantity = 2;
@@ -27,6 +32,16 @@ message GetProductsResponse {
     repeated Product products = 1;
 }
 
+message UpdateProductQuantityRequest {
+    repeated UpdateProductQuantity items = 1;
+}
+
+message UpdateProductQuantityResponse {
+    bool success = 1;
+    string message = 2;
+}
+
 service ProductsService {
     rpc GetProductsByIds (GetProductsRequest) returns (GetProductsResponse);
+    rpc UpdateProductQuantityByIds (UpdateProductQuantityRequest) returns (UpdateProductQuantityResponse);
 }
