@@ -29,6 +29,7 @@ type Product struct {
 	CategoryName         string                 `protobuf:"bytes,4,opt,name=category_name,json=categoryName,proto3" json:"category_name,omitempty"`
 	ImageUrl             string                 `protobuf:"bytes,5,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
 	AvailabilityOfPieces int64                  `protobuf:"varint,6,opt,name=availability_of_pieces,json=availabilityOfPieces,proto3" json:"availability_of_pieces,omitempty"`
+	Price                float64                `protobuf:"fixed64,7,opt,name=price,proto3" json:"price,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
 }
@@ -101,6 +102,13 @@ func (x *Product) GetImageUrl() string {
 func (x *Product) GetAvailabilityOfPieces() int64 {
 	if x != nil {
 		return x.AvailabilityOfPieces
+	}
+	return 0
+}
+
+func (x *Product) GetPrice() float64 {
+	if x != nil {
+		return x.Price
 	}
 	return 0
 }
@@ -405,7 +413,7 @@ var File_product_proto protoreflect.FileDescriptor
 
 const file_product_proto_rawDesc = "" +
 	"\n" +
-	"\rproduct.proto\x12\bproducts\"\xd5\x01\n" +
+	"\rproduct.proto\x12\bproducts\"\xeb\x01\n" +
 	"\aProduct\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12!\n" +
 	"\fproduct_name\x18\x02 \x01(\tR\vproductName\x12\x1f\n" +
@@ -413,7 +421,8 @@ const file_product_proto_rawDesc = "" +
 	"categoryId\x12#\n" +
 	"\rcategory_name\x18\x04 \x01(\tR\fcategoryName\x12\x1b\n" +
 	"\timage_url\x18\x05 \x01(\tR\bimageUrl\x124\n" +
-	"\x16availability_of_pieces\x18\x06 \x01(\x03R\x14availabilityOfPieces\"R\n" +
+	"\x16availability_of_pieces\x18\x06 \x01(\x03R\x14availabilityOfPieces\x12\x14\n" +
+	"\x05price\x18\a \x01(\x01R\x05price\"R\n" +
 	"\x15UpdateProductQuantity\x12\x1d\n" +
 	"\n" +
 	"product_id\x18\x01 \x01(\x03R\tproductId\x12\x1a\n" +
