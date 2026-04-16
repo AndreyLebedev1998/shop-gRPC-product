@@ -42,7 +42,25 @@ message UpdateProductQuantityResponse {
     string message = 2;
 }
 
+message NewProduct {
+    string product_name = 1;
+    int64 category_id = 2;
+    string image_url = 3;
+    int64 availability_of_pieces = 4;
+    double price = 5;
+}
+
+message ReturnNewProduct {
+    int64 id = 1;
+    string product_name = 2;
+    int64 category_id = 3;
+    string image_url = 4;
+    int64 availability_of_pieces = 5;
+    double price = 6;
+}
+
 service ProductsService {
     rpc GetProductsByIds (GetProductsRequest) returns (GetProductsResponse);
     rpc UpdateProductQuantityByIds (UpdateProductQuantityRequest) returns (UpdateProductQuantityResponse);
+    rpc CreateProduct (NewProduct) returns (ReturnNewProduct);
 }
