@@ -61,6 +61,7 @@ message ReturnNewProduct {
 
 service ProductsService {
     rpc GetProductsByIds (GetProductsRequest) returns (GetProductsResponse);
-    rpc UpdateProductQuantityByIds (UpdateProductQuantityRequest) returns (UpdateProductQuantityResponse);
+    rpc MinusProductQuantityByIds (UpdateProductQuantityRequest) returns (UpdateProductQuantityResponse);
+    rpc PlusProductQuantityByIds (UpdateProductQuantityRequest) returns (UpdateProductQuantityResponse);
     rpc CreateProduct (NewProduct) returns (ReturnNewProduct);
 }

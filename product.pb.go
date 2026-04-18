@@ -617,10 +617,11 @@ const file_product_proto_rawDesc = "" +
 	"categoryId\x12\x1b\n" +
 	"\timage_url\x18\x04 \x01(\tR\bimageUrl\x124\n" +
 	"\x16availability_of_pieces\x18\x05 \x01(\x03R\x14availabilityOfPieces\x12\x14\n" +
-	"\x05price\x18\x06 \x01(\x01R\x05price2\x94\x02\n" +
+	"\x05price\x18\x06 \x01(\x01R\x05price2\x80\x03\n" +
 	"\x0fProductsService\x12O\n" +
-	"\x10GetProductsByIds\x12\x1c.products.GetProductsRequest\x1a\x1d.products.GetProductsResponse\x12m\n" +
-	"\x1aUpdateProductQuantityByIds\x12&.products.UpdateProductQuantityRequest\x1a'.products.UpdateProductQuantityResponse\x12A\n" +
+	"\x10GetProductsByIds\x12\x1c.products.GetProductsRequest\x1a\x1d.products.GetProductsResponse\x12l\n" +
+	"\x19MinusProductQuantityByIds\x12&.products.UpdateProductQuantityRequest\x1a'.products.UpdateProductQuantityResponse\x12k\n" +
+	"\x18PlusProductQuantityByIds\x12&.products.UpdateProductQuantityRequest\x1a'.products.UpdateProductQuantityResponse\x12A\n" +
 	"\rCreateProduct\x12\x14.products.NewProduct\x1a\x1a.products.ReturnNewProductBDZBgithub.com/AndreyLebedev1998/shop-gRPC-product/productpb;productpbb\x06proto3"
 
 var (
@@ -651,13 +652,15 @@ var file_product_proto_depIdxs = []int32{
 	0, // 0: products.GetProductsResponse.products:type_name -> products.Product
 	1, // 1: products.UpdateProductQuantityRequest.items:type_name -> products.UpdateProductQuantity
 	3, // 2: products.ProductsService.GetProductsByIds:input_type -> products.GetProductsRequest
-	5, // 3: products.ProductsService.UpdateProductQuantityByIds:input_type -> products.UpdateProductQuantityRequest
-	7, // 4: products.ProductsService.CreateProduct:input_type -> products.NewProduct
-	4, // 5: products.ProductsService.GetProductsByIds:output_type -> products.GetProductsResponse
-	6, // 6: products.ProductsService.UpdateProductQuantityByIds:output_type -> products.UpdateProductQuantityResponse
-	8, // 7: products.ProductsService.CreateProduct:output_type -> products.ReturnNewProduct
-	5, // [5:8] is the sub-list for method output_type
-	2, // [2:5] is the sub-list for method input_type
+	5, // 3: products.ProductsService.MinusProductQuantityByIds:input_type -> products.UpdateProductQuantityRequest
+	5, // 4: products.ProductsService.PlusProductQuantityByIds:input_type -> products.UpdateProductQuantityRequest
+	7, // 5: products.ProductsService.CreateProduct:input_type -> products.NewProduct
+	4, // 6: products.ProductsService.GetProductsByIds:output_type -> products.GetProductsResponse
+	6, // 7: products.ProductsService.MinusProductQuantityByIds:output_type -> products.UpdateProductQuantityResponse
+	6, // 8: products.ProductsService.PlusProductQuantityByIds:output_type -> products.UpdateProductQuantityResponse
+	8, // 9: products.ProductsService.CreateProduct:output_type -> products.ReturnNewProduct
+	6, // [6:10] is the sub-list for method output_type
+	2, // [2:6] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
 	2, // [2:2] is the sub-list for extension extendee
 	0, // [0:2] is the sub-list for field type_name
