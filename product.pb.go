@@ -317,6 +317,7 @@ type UpdateProductQuantityRequest struct {
 	state         protoimpl.MessageState   `protogen:"open.v1"`
 	Items         []*UpdateProductQuantity `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
 	Param         bool                     `protobuf:"varint,2,opt,name=param,proto3" json:"param,omitempty"`
+	IsCreate      bool                     `protobuf:"varint,3,opt,name=isCreate,proto3" json:"isCreate,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -361,6 +362,13 @@ func (x *UpdateProductQuantityRequest) GetItems() []*UpdateProductQuantity {
 func (x *UpdateProductQuantityRequest) GetParam() bool {
 	if x != nil {
 		return x.Param
+	}
+	return false
+}
+
+func (x *UpdateProductQuantityRequest) GetIsCreate() bool {
+	if x != nil {
+		return x.IsCreate
 	}
 	return false
 }
@@ -604,10 +612,11 @@ const file_product_proto_rawDesc = "" +
 	"\vproduct_ids\x18\x01 \x03(\x03R\n" +
 	"productIds\"D\n" +
 	"\x13GetProductsResponse\x12-\n" +
-	"\bproducts\x18\x01 \x03(\v2\x11.products.ProductR\bproducts\"k\n" +
+	"\bproducts\x18\x01 \x03(\v2\x11.products.ProductR\bproducts\"\x87\x01\n" +
 	"\x1cUpdateProductQuantityRequest\x125\n" +
 	"\x05items\x18\x01 \x03(\v2\x1f.products.UpdateProductQuantityR\x05items\x12\x14\n" +
-	"\x05param\x18\x02 \x01(\bR\x05param\"S\n" +
+	"\x05param\x18\x02 \x01(\bR\x05param\x12\x1a\n" +
+	"\bisCreate\x18\x03 \x01(\bR\bisCreate\"S\n" +
 	"\x1dUpdateProductQuantityResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\"\xb9\x01\n" +
