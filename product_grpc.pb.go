@@ -19,10 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ProductsService_GetProductsByIds_FullMethodName          = "/products.ProductsService/GetProductsByIds"
-	ProductsService_MinusProductQuantityByIds_FullMethodName = "/products.ProductsService/MinusProductQuantityByIds"
-	ProductsService_PlusProductQuantityByIds_FullMethodName  = "/products.ProductsService/PlusProductQuantityByIds"
-	ProductsService_CreateProduct_FullMethodName             = "/products.ProductsService/CreateProduct"
+	ProductsService_GetProductsByIds_FullMethodName           = "/products.ProductsService/GetProductsByIds"
+	ProductsService_UpdateProductQuantityByIds_FullMethodName = "/products.ProductsService/UpdateProductQuantityByIds"
+	ProductsService_CreateProduct_FullMethodName              = "/products.ProductsService/CreateProduct"
 )
 
 // ProductsServiceClient is the client API for ProductsService service.
@@ -30,8 +29,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProductsServiceClient interface {
 	GetProductsByIds(ctx context.Context, in *GetProductsRequest, opts ...grpc.CallOption) (*GetProductsResponse, error)
-	MinusProductQuantityByIds(ctx context.Context, in *UpdateProductQuantityRequest, opts ...grpc.CallOption) (*UpdateProductQuantityResponse, error)
-	PlusProductQuantityByIds(ctx context.Context, in *UpdateProductQuantityRequest, opts ...grpc.CallOption) (*UpdateProductQuantityResponse, error)
+	UpdateProductQuantityByIds(ctx context.Context, in *UpdateProductQuantityRequest, opts ...grpc.CallOption) (*UpdateProductQuantityResponse, error)
 	CreateProduct(ctx context.Context, in *NewProduct, opts ...grpc.CallOption) (*ReturnNewProduct, error)
 }
 
@@ -53,20 +51,10 @@ func (c *productsServiceClient) GetProductsByIds(ctx context.Context, in *GetPro
 	return out, nil
 }
 
-func (c *productsServiceClient) MinusProductQuantityByIds(ctx context.Context, in *UpdateProductQuantityRequest, opts ...grpc.CallOption) (*UpdateProductQuantityResponse, error) {
+func (c *productsServiceClient) UpdateProductQuantityByIds(ctx context.Context, in *UpdateProductQuantityRequest, opts ...grpc.CallOption) (*UpdateProductQuantityResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateProductQuantityResponse)
-	err := c.cc.Invoke(ctx, ProductsService_MinusProductQuantityByIds_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *productsServiceClient) PlusProductQuantityByIds(ctx context.Context, in *UpdateProductQuantityRequest, opts ...grpc.CallOption) (*UpdateProductQuantityResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateProductQuantityResponse)
-	err := c.cc.Invoke(ctx, ProductsService_PlusProductQuantityByIds_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, ProductsService_UpdateProductQuantityByIds_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -88,8 +76,7 @@ func (c *productsServiceClient) CreateProduct(ctx context.Context, in *NewProduc
 // for forward compatibility.
 type ProductsServiceServer interface {
 	GetProductsByIds(context.Context, *GetProductsRequest) (*GetProductsResponse, error)
-	MinusProductQuantityByIds(context.Context, *UpdateProductQuantityRequest) (*UpdateProductQuantityResponse, error)
-	PlusProductQuantityByIds(context.Context, *UpdateProductQuantityRequest) (*UpdateProductQuantityResponse, error)
+	UpdateProductQuantityByIds(context.Context, *UpdateProductQuantityRequest) (*UpdateProductQuantityResponse, error)
 	CreateProduct(context.Context, *NewProduct) (*ReturnNewProduct, error)
 	mustEmbedUnimplementedProductsServiceServer()
 }
@@ -104,11 +91,8 @@ type UnimplementedProductsServiceServer struct{}
 func (UnimplementedProductsServiceServer) GetProductsByIds(context.Context, *GetProductsRequest) (*GetProductsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetProductsByIds not implemented")
 }
-func (UnimplementedProductsServiceServer) MinusProductQuantityByIds(context.Context, *UpdateProductQuantityRequest) (*UpdateProductQuantityResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method MinusProductQuantityByIds not implemented")
-}
-func (UnimplementedProductsServiceServer) PlusProductQuantityByIds(context.Context, *UpdateProductQuantityRequest) (*UpdateProductQuantityResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method PlusProductQuantityByIds not implemented")
+func (UnimplementedProductsServiceServer) UpdateProductQuantityByIds(context.Context, *UpdateProductQuantityRequest) (*UpdateProductQuantityResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UpdateProductQuantityByIds not implemented")
 }
 func (UnimplementedProductsServiceServer) CreateProduct(context.Context, *NewProduct) (*ReturnNewProduct, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateProduct not implemented")
@@ -152,38 +136,20 @@ func _ProductsService_GetProductsByIds_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ProductsService_MinusProductQuantityByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ProductsService_UpdateProductQuantityByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateProductQuantityRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServiceServer).MinusProductQuantityByIds(ctx, in)
+		return srv.(ProductsServiceServer).UpdateProductQuantityByIds(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ProductsService_MinusProductQuantityByIds_FullMethodName,
+		FullMethod: ProductsService_UpdateProductQuantityByIds_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServiceServer).MinusProductQuantityByIds(ctx, req.(*UpdateProductQuantityRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ProductsService_PlusProductQuantityByIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateProductQuantityRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProductsServiceServer).PlusProductQuantityByIds(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ProductsService_PlusProductQuantityByIds_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServiceServer).PlusProductQuantityByIds(ctx, req.(*UpdateProductQuantityRequest))
+		return srv.(ProductsServiceServer).UpdateProductQuantityByIds(ctx, req.(*UpdateProductQuantityRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -218,12 +184,8 @@ var ProductsService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ProductsService_GetProductsByIds_Handler,
 		},
 		{
-			MethodName: "MinusProductQuantityByIds",
-			Handler:    _ProductsService_MinusProductQuantityByIds_Handler,
-		},
-		{
-			MethodName: "PlusProductQuantityByIds",
-			Handler:    _ProductsService_PlusProductQuantityByIds_Handler,
+			MethodName: "UpdateProductQuantityByIds",
+			Handler:    _ProductsService_UpdateProductQuantityByIds_Handler,
 		},
 		{
 			MethodName: "CreateProduct",
