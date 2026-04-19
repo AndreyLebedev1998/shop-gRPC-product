@@ -36,6 +36,7 @@ message GetProductsResponse {
 message UpdateProductQuantityRequest {
     repeated UpdateProductQuantity items = 1;
     bool param = 2;
+    bool isCreate = 3;
 }
 
 message UpdateProductQuantityResponse {
