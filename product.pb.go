@@ -315,8 +315,8 @@ func (x *GetProductsResponse) GetProducts() []*Product {
 
 type UpdateProductQuantityRequest struct {
 	state         protoimpl.MessageState   `protogen:"open.v1"`
-	Items         []*UpdateProductQuantity `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
-	Param         bool                     `protobuf:"varint,2,opt,name=param,proto3" json:"param,omitempty"`
+	NewItems      []*UpdateProductQuantity `protobuf:"bytes,1,rep,name=newItems,proto3" json:"newItems,omitempty"`
+	OldItems      []*UpdateProductQuantity `protobuf:"bytes,2,rep,name=oldItems,proto3" json:"oldItems,omitempty"`
 	IsCreate      bool                     `protobuf:"varint,3,opt,name=isCreate,proto3" json:"isCreate,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -352,18 +352,18 @@ func (*UpdateProductQuantityRequest) Descriptor() ([]byte, []int) {
 	return file_product_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *UpdateProductQuantityRequest) GetItems() []*UpdateProductQuantity {
+func (x *UpdateProductQuantityRequest) GetNewItems() []*UpdateProductQuantity {
 	if x != nil {
-		return x.Items
+		return x.NewItems
 	}
 	return nil
 }
 
-func (x *UpdateProductQuantityRequest) GetParam() bool {
+func (x *UpdateProductQuantityRequest) GetOldItems() []*UpdateProductQuantity {
 	if x != nil {
-		return x.Param
+		return x.OldItems
 	}
-	return false
+	return nil
 }
 
 func (x *UpdateProductQuantityRequest) GetIsCreate() bool {
@@ -612,10 +612,10 @@ const file_product_proto_rawDesc = "" +
 	"\vproduct_ids\x18\x01 \x03(\x03R\n" +
 	"productIds\"D\n" +
 	"\x13GetProductsResponse\x12-\n" +
-	"\bproducts\x18\x01 \x03(\v2\x11.products.ProductR\bproducts\"\x87\x01\n" +
-	"\x1cUpdateProductQuantityRequest\x125\n" +
-	"\x05items\x18\x01 \x03(\v2\x1f.products.UpdateProductQuantityR\x05items\x12\x14\n" +
-	"\x05param\x18\x02 \x01(\bR\x05param\x12\x1a\n" +
+	"\bproducts\x18\x01 \x03(\v2\x11.products.ProductR\bproducts\"\xb4\x01\n" +
+	"\x1cUpdateProductQuantityRequest\x12;\n" +
+	"\bnewItems\x18\x01 \x03(\v2\x1f.products.UpdateProductQuantityR\bnewItems\x12;\n" +
+	"\boldItems\x18\x02 \x03(\v2\x1f.products.UpdateProductQuantityR\boldItems\x12\x1a\n" +
 	"\bisCreate\x18\x03 \x01(\bR\bisCreate\"S\n" +
 	"\x1dUpdateProductQuantityResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
@@ -667,18 +667,19 @@ var file_product_proto_goTypes = []any{
 }
 var file_product_proto_depIdxs = []int32{
 	0, // 0: products.GetProductsResponse.products:type_name -> products.Product
-	1, // 1: products.UpdateProductQuantityRequest.items:type_name -> products.UpdateProductQuantity
-	3, // 2: products.ProductsService.GetProductsByIds:input_type -> products.GetProductsRequest
-	5, // 3: products.ProductsService.UpdateProductQuantityByIds:input_type -> products.UpdateProductQuantityRequest
-	7, // 4: products.ProductsService.CreateProduct:input_type -> products.NewProduct
-	4, // 5: products.ProductsService.GetProductsByIds:output_type -> products.GetProductsResponse
-	6, // 6: products.ProductsService.UpdateProductQuantityByIds:output_type -> products.UpdateProductQuantityResponse
-	8, // 7: products.ProductsService.CreateProduct:output_type -> products.ReturnNewProduct
-	5, // [5:8] is the sub-list for method output_type
-	2, // [2:5] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1, // 1: products.UpdateProductQuantityRequest.newItems:type_name -> products.UpdateProductQuantity
+	1, // 2: products.UpdateProductQuantityRequest.oldItems:type_name -> products.UpdateProductQuantity
+	3, // 3: products.ProductsService.GetProductsByIds:input_type -> products.GetProductsRequest
+	5, // 4: products.ProductsService.UpdateProductQuantityByIds:input_type -> products.UpdateProductQuantityRequest
+	7, // 5: products.ProductsService.CreateProduct:input_type -> products.NewProduct
+	4, // 6: products.ProductsService.GetProductsByIds:output_type -> products.GetProductsResponse
+	6, // 7: products.ProductsService.UpdateProductQuantityByIds:output_type -> products.UpdateProductQuantityResponse
+	8, // 8: products.ProductsService.CreateProduct:output_type -> products.ReturnNewProduct
+	6, // [6:9] is the sub-list for method output_type
+	3, // [3:6] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_product_proto_init() }

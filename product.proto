@@ -34,8 +34,8 @@ message GetProductsResponse {
 }
 
 message UpdateProductQuantityRequest {
-    repeated UpdateProductQuantity items = 1;
-    bool param = 2;
+    repeated UpdateProductQuantity newItems = 1;
+    repeated UpdateProductQuantity oldItems = 2;
     bool isCreate = 3;
 }
 
