@@ -61,8 +61,20 @@ message ReturnNewProduct {
     double price = 6;
 }
 
+message NewCategory {
+    string category_name = 2;
+}
+
+message ReturnNewCategory {
+    int64 id = 1;
+    string category_name = 2;
+}
+
 service ProductsService {
     rpc GetProductsByIds (GetProductsRequest) returns (GetProductsResponse);
     rpc UpdateProductQuantityByIds (UpdateProductQuantityRequest) returns (UpdateProductQuantityResponse);
     rpc CreateProduct (NewProduct) returns (ReturnNewProduct);
+    rpc CreateCategory (NewCategory) returns (ReturnNewCategory);
+    rpc ChangeProduct (ReturnNewProduct) returns (ReturnNewProduct);
+    rpc ChangeCategory (ReturnNewCategory) returns (ReturnNewCategory);
 }

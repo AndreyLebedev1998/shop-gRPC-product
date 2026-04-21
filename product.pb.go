@@ -585,6 +585,102 @@ func (x *ReturnNewProduct) GetPrice() float64 {
 	return 0
 }
 
+type NewCategory struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CategoryName  string                 `protobuf:"bytes,2,opt,name=category_name,json=categoryName,proto3" json:"category_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *NewCategory) Reset() {
+	*x = NewCategory{}
+	mi := &file_product_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *NewCategory) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NewCategory) ProtoMessage() {}
+
+func (x *NewCategory) ProtoReflect() protoreflect.Message {
+	mi := &file_product_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NewCategory.ProtoReflect.Descriptor instead.
+func (*NewCategory) Descriptor() ([]byte, []int) {
+	return file_product_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *NewCategory) GetCategoryName() string {
+	if x != nil {
+		return x.CategoryName
+	}
+	return ""
+}
+
+type ReturnNewCategory struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CategoryName  string                 `protobuf:"bytes,2,opt,name=category_name,json=categoryName,proto3" json:"category_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReturnNewCategory) Reset() {
+	*x = ReturnNewCategory{}
+	mi := &file_product_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReturnNewCategory) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReturnNewCategory) ProtoMessage() {}
+
+func (x *ReturnNewCategory) ProtoReflect() protoreflect.Message {
+	mi := &file_product_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReturnNewCategory.ProtoReflect.Descriptor instead.
+func (*ReturnNewCategory) Descriptor() ([]byte, []int) {
+	return file_product_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *ReturnNewCategory) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *ReturnNewCategory) GetCategoryName() string {
+	if x != nil {
+		return x.CategoryName
+	}
+	return ""
+}
+
 var File_product_proto protoreflect.FileDescriptor
 
 const file_product_proto_rawDesc = "" +
@@ -635,11 +731,19 @@ const file_product_proto_rawDesc = "" +
 	"categoryId\x12\x1b\n" +
 	"\timage_url\x18\x04 \x01(\tR\bimageUrl\x124\n" +
 	"\x16availability_of_pieces\x18\x05 \x01(\x03R\x14availabilityOfPieces\x12\x14\n" +
-	"\x05price\x18\x06 \x01(\x01R\x05price2\x94\x02\n" +
+	"\x05price\x18\x06 \x01(\x01R\x05price\"2\n" +
+	"\vNewCategory\x12#\n" +
+	"\rcategory_name\x18\x02 \x01(\tR\fcategoryName\"H\n" +
+	"\x11ReturnNewCategory\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12#\n" +
+	"\rcategory_name\x18\x02 \x01(\tR\fcategoryName2\xef\x03\n" +
 	"\x0fProductsService\x12O\n" +
 	"\x10GetProductsByIds\x12\x1c.products.GetProductsRequest\x1a\x1d.products.GetProductsResponse\x12m\n" +
 	"\x1aUpdateProductQuantityByIds\x12&.products.UpdateProductQuantityRequest\x1a'.products.UpdateProductQuantityResponse\x12A\n" +
-	"\rCreateProduct\x12\x14.products.NewProduct\x1a\x1a.products.ReturnNewProductBDZBgithub.com/AndreyLebedev1998/shop-gRPC-product/productpb;productpbb\x06proto3"
+	"\rCreateProduct\x12\x14.products.NewProduct\x1a\x1a.products.ReturnNewProduct\x12D\n" +
+	"\x0eCreateCategory\x12\x15.products.NewCategory\x1a\x1b.products.ReturnNewCategory\x12G\n" +
+	"\rChangeProduct\x12\x1a.products.ReturnNewProduct\x1a\x1a.products.ReturnNewProduct\x12J\n" +
+	"\x0eChangeCategory\x12\x1b.products.ReturnNewCategory\x1a\x1b.products.ReturnNewCategoryBDZBgithub.com/AndreyLebedev1998/shop-gRPC-product/productpb;productpbb\x06proto3"
 
 var (
 	file_product_proto_rawDescOnce sync.Once
@@ -653,7 +757,7 @@ func file_product_proto_rawDescGZIP() []byte {
 	return file_product_proto_rawDescData
 }
 
-var file_product_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_product_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_product_proto_goTypes = []any{
 	(*Product)(nil),                       // 0: products.Product
 	(*UpdateProductQuantity)(nil),         // 1: products.UpdateProductQuantity
@@ -664,22 +768,30 @@ var file_product_proto_goTypes = []any{
 	(*UpdateProductQuantityResponse)(nil), // 6: products.UpdateProductQuantityResponse
 	(*NewProduct)(nil),                    // 7: products.NewProduct
 	(*ReturnNewProduct)(nil),              // 8: products.ReturnNewProduct
+	(*NewCategory)(nil),                   // 9: products.NewCategory
+	(*ReturnNewCategory)(nil),             // 10: products.ReturnNewCategory
 }
 var file_product_proto_depIdxs = []int32{
-	0, // 0: products.GetProductsResponse.products:type_name -> products.Product
-	1, // 1: products.UpdateProductQuantityRequest.newItems:type_name -> products.UpdateProductQuantity
-	1, // 2: products.UpdateProductQuantityRequest.oldItems:type_name -> products.UpdateProductQuantity
-	3, // 3: products.ProductsService.GetProductsByIds:input_type -> products.GetProductsRequest
-	5, // 4: products.ProductsService.UpdateProductQuantityByIds:input_type -> products.UpdateProductQuantityRequest
-	7, // 5: products.ProductsService.CreateProduct:input_type -> products.NewProduct
-	4, // 6: products.ProductsService.GetProductsByIds:output_type -> products.GetProductsResponse
-	6, // 7: products.ProductsService.UpdateProductQuantityByIds:output_type -> products.UpdateProductQuantityResponse
-	8, // 8: products.ProductsService.CreateProduct:output_type -> products.ReturnNewProduct
-	6, // [6:9] is the sub-list for method output_type
-	3, // [3:6] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0,  // 0: products.GetProductsResponse.products:type_name -> products.Product
+	1,  // 1: products.UpdateProductQuantityRequest.newItems:type_name -> products.UpdateProductQuantity
+	1,  // 2: products.UpdateProductQuantityRequest.oldItems:type_name -> products.UpdateProductQuantity
+	3,  // 3: products.ProductsService.GetProductsByIds:input_type -> products.GetProductsRequest
+	5,  // 4: products.ProductsService.UpdateProductQuantityByIds:input_type -> products.UpdateProductQuantityRequest
+	7,  // 5: products.ProductsService.CreateProduct:input_type -> products.NewProduct
+	9,  // 6: products.ProductsService.CreateCategory:input_type -> products.NewCategory
+	8,  // 7: products.ProductsService.ChangeProduct:input_type -> products.ReturnNewProduct
+	10, // 8: products.ProductsService.ChangeCategory:input_type -> products.ReturnNewCategory
+	4,  // 9: products.ProductsService.GetProductsByIds:output_type -> products.GetProductsResponse
+	6,  // 10: products.ProductsService.UpdateProductQuantityByIds:output_type -> products.UpdateProductQuantityResponse
+	8,  // 11: products.ProductsService.CreateProduct:output_type -> products.ReturnNewProduct
+	10, // 12: products.ProductsService.CreateCategory:output_type -> products.ReturnNewCategory
+	8,  // 13: products.ProductsService.ChangeProduct:output_type -> products.ReturnNewProduct
+	10, // 14: products.ProductsService.ChangeCategory:output_type -> products.ReturnNewCategory
+	9,  // [9:15] is the sub-list for method output_type
+	3,  // [3:9] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_product_proto_init() }
@@ -693,7 +805,7 @@ func file_product_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_product_proto_rawDesc), len(file_product_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
