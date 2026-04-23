@@ -70,6 +70,20 @@ message ReturnNewCategory {
     string category_name = 2;
 }
 
+message ProductId {
+    int64 id = 1;
+}
+
+message CategoryId {
+    int64 id = 1;
+}
+
+message RemoveMessage {
+    int64 id = 1;
+    bool status = 2;
+    string message = 3;
+}
+
 service ProductsService {
     rpc GetProductsByIds (GetProductsRequest) returns (GetProductsResponse);
     rpc UpdateProductQuantityByIds (UpdateProductQuantityRequest) returns (UpdateProductQuantityResponse);
@@ -77,4 +91,6 @@ service ProductsService {
     rpc CreateCategory (NewCategory) returns (ReturnNewCategory);
     rpc ChangeProduct (ReturnNewProduct) returns (ReturnNewProduct);
     rpc ChangeCategory (ReturnNewCategory) returns (ReturnNewCategory);
+    rpc RemoveProduct (ProductId) returns (RemoveMessage);
+    rpc RemoveCategory (CategoryId) returns (RemoveMessage);
 }

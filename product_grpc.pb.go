@@ -25,6 +25,8 @@ const (
 	ProductsService_CreateCategory_FullMethodName             = "/products.ProductsService/CreateCategory"
 	ProductsService_ChangeProduct_FullMethodName              = "/products.ProductsService/ChangeProduct"
 	ProductsService_ChangeCategory_FullMethodName             = "/products.ProductsService/ChangeCategory"
+	ProductsService_RemoveProduct_FullMethodName              = "/products.ProductsService/RemoveProduct"
+	ProductsService_RemoveCategory_FullMethodName             = "/products.ProductsService/RemoveCategory"
 )
 
 // ProductsServiceClient is the client API for ProductsService service.
@@ -37,6 +39,8 @@ type ProductsServiceClient interface {
 	CreateCategory(ctx context.Context, in *NewCategory, opts ...grpc.CallOption) (*ReturnNewCategory, error)
 	ChangeProduct(ctx context.Context, in *ReturnNewProduct, opts ...grpc.CallOption) (*ReturnNewProduct, error)
 	ChangeCategory(ctx context.Context, in *ReturnNewCategory, opts ...grpc.CallOption) (*ReturnNewCategory, error)
+	RemoveProduct(ctx context.Context, in *ProductId, opts ...grpc.CallOption) (*RemoveMessage, error)
+	RemoveCategory(ctx context.Context, in *CategoryId, opts ...grpc.CallOption) (*RemoveMessage, error)
 }
 
 type productsServiceClient struct {
@@ -107,6 +111,26 @@ func (c *productsServiceClient) ChangeCategory(ctx context.Context, in *ReturnNe
 	return out, nil
 }
 
+func (c *productsServiceClient) RemoveProduct(ctx context.Context, in *ProductId, opts ...grpc.CallOption) (*RemoveMessage, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveMessage)
+	err := c.cc.Invoke(ctx, ProductsService_RemoveProduct_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsServiceClient) RemoveCategory(ctx context.Context, in *CategoryId, opts ...grpc.CallOption) (*RemoveMessage, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveMessage)
+	err := c.cc.Invoke(ctx, ProductsService_RemoveCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductsServiceServer is the server API for ProductsService service.
 // All implementations must embed UnimplementedProductsServiceServer
 // for forward compatibility.
@@ -117,6 +141,8 @@ type ProductsServiceServer interface {
 	CreateCategory(context.Context, *NewCategory) (*ReturnNewCategory, error)
 	ChangeProduct(context.Context, *ReturnNewProduct) (*ReturnNewProduct, error)
 	ChangeCategory(context.Context, *ReturnNewCategory) (*ReturnNewCategory, error)
+	RemoveProduct(context.Context, *ProductId) (*RemoveMessage, error)
+	RemoveCategory(context.Context, *CategoryId) (*RemoveMessage, error)
 	mustEmbedUnimplementedProductsServiceServer()
 }
 
@@ -144,6 +170,12 @@ func (UnimplementedProductsServiceServer) ChangeProduct(context.Context, *Return
 }
 func (UnimplementedProductsServiceServer) ChangeCategory(context.Context, *ReturnNewCategory) (*ReturnNewCategory, error) {
 	return nil, status.Error(codes.Unimplemented, "method ChangeCategory not implemented")
+}
+func (UnimplementedProductsServiceServer) RemoveProduct(context.Context, *ProductId) (*RemoveMessage, error) {
+	return nil, status.Error(codes.Unimplemented, "method RemoveProduct not implemented")
+}
+func (UnimplementedProductsServiceServer) RemoveCategory(context.Context, *CategoryId) (*RemoveMessage, error) {
+	return nil, status.Error(codes.Unimplemented, "method RemoveCategory not implemented")
 }
 func (UnimplementedProductsServiceServer) mustEmbedUnimplementedProductsServiceServer() {}
 func (UnimplementedProductsServiceServer) testEmbeddedByValue()                         {}
@@ -274,6 +306,42 @@ func _ProductsService_ChangeCategory_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductsService_RemoveProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServiceServer).RemoveProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductsService_RemoveProduct_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServiceServer).RemoveProduct(ctx, req.(*ProductId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProductsService_RemoveCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServiceServer).RemoveCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductsService_RemoveCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServiceServer).RemoveCategory(ctx, req.(*CategoryId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductsService_ServiceDesc is the grpc.ServiceDesc for ProductsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -304,6 +372,14 @@ var ProductsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ChangeCategory",
 			Handler:    _ProductsService_ChangeCategory_Handler,
+		},
+		{
+			MethodName: "RemoveProduct",
+			Handler:    _ProductsService_RemoveProduct_Handler,
+		},
+		{
+			MethodName: "RemoveCategory",
+			Handler:    _ProductsService_RemoveCategory_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
