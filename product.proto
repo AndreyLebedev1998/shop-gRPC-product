@@ -36,7 +36,8 @@ message GetProductsResponse {
 message UpdateProductQuantityRequest {
     repeated UpdateProductQuantity newItems = 1;
     repeated UpdateProductQuantity oldItems = 2;
-    bool isCreate = 3;
+    bool isCreate = 3; // Создание заказа
+    bool isDelete = 4; // Отмена заказа
 }
 
 message UpdateProductQuantityResponse {

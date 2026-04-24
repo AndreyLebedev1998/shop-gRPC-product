@@ -317,7 +317,8 @@ type UpdateProductQuantityRequest struct {
 	state         protoimpl.MessageState   `protogen:"open.v1"`
 	NewItems      []*UpdateProductQuantity `protobuf:"bytes,1,rep,name=newItems,proto3" json:"newItems,omitempty"`
 	OldItems      []*UpdateProductQuantity `protobuf:"bytes,2,rep,name=oldItems,proto3" json:"oldItems,omitempty"`
-	IsCreate      bool                     `protobuf:"varint,3,opt,name=isCreate,proto3" json:"isCreate,omitempty"`
+	IsCreate      bool                     `protobuf:"varint,3,opt,name=isCreate,proto3" json:"isCreate,omitempty"` // Создание заказа
+	IsDelete      bool                     `protobuf:"varint,4,opt,name=isDelete,proto3" json:"isDelete,omitempty"` // Отмена заказа
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -369,6 +370,13 @@ func (x *UpdateProductQuantityRequest) GetOldItems() []*UpdateProductQuantity {
 func (x *UpdateProductQuantityRequest) GetIsCreate() bool {
 	if x != nil {
 		return x.IsCreate
+	}
+	return false
+}
+
+func (x *UpdateProductQuantityRequest) GetIsDelete() bool {
+	if x != nil {
+		return x.IsDelete
 	}
 	return false
 }
@@ -856,11 +864,12 @@ const file_product_proto_rawDesc = "" +
 	"\vproduct_ids\x18\x01 \x03(\x03R\n" +
 	"productIds\"D\n" +
 	"\x13GetProductsResponse\x12-\n" +
-	"\bproducts\x18\x01 \x03(\v2\x11.products.ProductR\bproducts\"\xb4\x01\n" +
+	"\bproducts\x18\x01 \x03(\v2\x11.products.ProductR\bproducts\"\xd0\x01\n" +
 	"\x1cUpdateProductQuantityRequest\x12;\n" +
 	"\bnewItems\x18\x01 \x03(\v2\x1f.products.UpdateProductQuantityR\bnewItems\x12;\n" +
 	"\boldItems\x18\x02 \x03(\v2\x1f.products.UpdateProductQuantityR\boldItems\x12\x1a\n" +
-	"\bisCreate\x18\x03 \x01(\bR\bisCreate\"S\n" +
+	"\bisCreate\x18\x03 \x01(\bR\bisCreate\x12\x1a\n" +
+	"\bisDelete\x18\x04 \x01(\bR\bisDelete\"S\n" +
 	"\x1dUpdateProductQuantityResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\"\xb9\x01\n" +
