@@ -27,6 +27,7 @@ const (
 	ProductsService_ChangeCategory_FullMethodName             = "/products.ProductsService/ChangeCategory"
 	ProductsService_RemoveProduct_FullMethodName              = "/products.ProductsService/RemoveProduct"
 	ProductsService_RemoveCategory_FullMethodName             = "/products.ProductsService/RemoveCategory"
+	ProductsService_GetProductName_FullMethodName             = "/products.ProductsService/GetProductName"
 )
 
 // ProductsServiceClient is the client API for ProductsService service.
@@ -41,6 +42,7 @@ type ProductsServiceClient interface {
 	ChangeCategory(ctx context.Context, in *ReturnNewCategory, opts ...grpc.CallOption) (*ReturnNewCategory, error)
 	RemoveProduct(ctx context.Context, in *ProductId, opts ...grpc.CallOption) (*RemoveMessage, error)
 	RemoveCategory(ctx context.Context, in *CategoryId, opts ...grpc.CallOption) (*RemoveMessage, error)
+	GetProductName(ctx context.Context, in *ProductName, opts ...grpc.CallOption) (*ReturnResult, error)
 }
 
 type productsServiceClient struct {
@@ -131,6 +133,16 @@ func (c *productsServiceClient) RemoveCategory(ctx context.Context, in *Category
 	return out, nil
 }
 
+func (c *productsServiceClient) GetProductName(ctx context.Context, in *ProductName, opts ...grpc.CallOption) (*ReturnResult, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReturnResult)
+	err := c.cc.Invoke(ctx, ProductsService_GetProductName_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductsServiceServer is the server API for ProductsService service.
 // All implementations must embed UnimplementedProductsServiceServer
 // for forward compatibility.
@@ -143,6 +155,7 @@ type ProductsServiceServer interface {
 	ChangeCategory(context.Context, *ReturnNewCategory) (*ReturnNewCategory, error)
 	RemoveProduct(context.Context, *ProductId) (*RemoveMessage, error)
 	RemoveCategory(context.Context, *CategoryId) (*RemoveMessage, error)
+	GetProductName(context.Context, *ProductName) (*ReturnResult, error)
 	mustEmbedUnimplementedProductsServiceServer()
 }
 
@@ -176,6 +189,9 @@ func (UnimplementedProductsServiceServer) RemoveProduct(context.Context, *Produc
 }
 func (UnimplementedProductsServiceServer) RemoveCategory(context.Context, *CategoryId) (*RemoveMessage, error) {
 	return nil, status.Error(codes.Unimplemented, "method RemoveCategory not implemented")
+}
+func (UnimplementedProductsServiceServer) GetProductName(context.Context, *ProductName) (*ReturnResult, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetProductName not implemented")
 }
 func (UnimplementedProductsServiceServer) mustEmbedUnimplementedProductsServiceServer() {}
 func (UnimplementedProductsServiceServer) testEmbeddedByValue()                         {}
@@ -342,6 +358,24 @@ func _ProductsService_RemoveCategory_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductsService_GetProductName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductName)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServiceServer).GetProductName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductsService_GetProductName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServiceServer).GetProductName(ctx, req.(*ProductName))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductsService_ServiceDesc is the grpc.ServiceDesc for ProductsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -380,6 +414,10 @@ var ProductsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveCategory",
 			Handler:    _ProductsService_RemoveCategory_Handler,
+		},
+		{
+			MethodName: "GetProductName",
+			Handler:    _ProductsService_GetProductName_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
