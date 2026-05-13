@@ -113,6 +113,7 @@ service ProductsService {
     rpc CreateCategory (NewCategory) returns (ReturnNewCategory);
     rpc CreateSubcategory (NewSubcategory) returns (ReturnNewSubcategory);
     rpc ChangeProduct (ReturnNewProduct) returns (ReturnNewProduct);
+    rpc ChangeSubcategory (ReturnNewSubcategory) returns (ReturnNewSubcategory);
     rpc ChangeCategory (ReturnNewCategory) returns (ReturnNewCategory);
     rpc RemoveProduct (ProductId) returns (RemoveMessage);
     rpc RemoveCategory (CategoryId) returns (RemoveMessage);

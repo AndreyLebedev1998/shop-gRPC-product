@@ -25,6 +25,7 @@ const (
 	ProductsService_CreateCategory_FullMethodName             = "/products.ProductsService/CreateCategory"
 	ProductsService_CreateSubcategory_FullMethodName          = "/products.ProductsService/CreateSubcategory"
 	ProductsService_ChangeProduct_FullMethodName              = "/products.ProductsService/ChangeProduct"
+	ProductsService_ChangeSubcategory_FullMethodName          = "/products.ProductsService/ChangeSubcategory"
 	ProductsService_ChangeCategory_FullMethodName             = "/products.ProductsService/ChangeCategory"
 	ProductsService_RemoveProduct_FullMethodName              = "/products.ProductsService/RemoveProduct"
 	ProductsService_RemoveCategory_FullMethodName             = "/products.ProductsService/RemoveCategory"
@@ -42,6 +43,7 @@ type ProductsServiceClient interface {
 	CreateCategory(ctx context.Context, in *NewCategory, opts ...grpc.CallOption) (*ReturnNewCategory, error)
 	CreateSubcategory(ctx context.Context, in *NewSubcategory, opts ...grpc.CallOption) (*ReturnNewSubcategory, error)
 	ChangeProduct(ctx context.Context, in *ReturnNewProduct, opts ...grpc.CallOption) (*ReturnNewProduct, error)
+	ChangeSubcategory(ctx context.Context, in *ReturnNewSubcategory, opts ...grpc.CallOption) (*ReturnNewSubcategory, error)
 	ChangeCategory(ctx context.Context, in *ReturnNewCategory, opts ...grpc.CallOption) (*ReturnNewCategory, error)
 	RemoveProduct(ctx context.Context, in *ProductId, opts ...grpc.CallOption) (*RemoveMessage, error)
 	RemoveCategory(ctx context.Context, in *CategoryId, opts ...grpc.CallOption) (*RemoveMessage, error)
@@ -117,6 +119,16 @@ func (c *productsServiceClient) ChangeProduct(ctx context.Context, in *ReturnNew
 	return out, nil
 }
 
+func (c *productsServiceClient) ChangeSubcategory(ctx context.Context, in *ReturnNewSubcategory, opts ...grpc.CallOption) (*ReturnNewSubcategory, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReturnNewSubcategory)
+	err := c.cc.Invoke(ctx, ProductsService_ChangeSubcategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *productsServiceClient) ChangeCategory(ctx context.Context, in *ReturnNewCategory, opts ...grpc.CallOption) (*ReturnNewCategory, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ReturnNewCategory)
@@ -177,6 +189,7 @@ type ProductsServiceServer interface {
 	CreateCategory(context.Context, *NewCategory) (*ReturnNewCategory, error)
 	CreateSubcategory(context.Context, *NewSubcategory) (*ReturnNewSubcategory, error)
 	ChangeProduct(context.Context, *ReturnNewProduct) (*ReturnNewProduct, error)
+	ChangeSubcategory(context.Context, *ReturnNewSubcategory) (*ReturnNewSubcategory, error)
 	ChangeCategory(context.Context, *ReturnNewCategory) (*ReturnNewCategory, error)
 	RemoveProduct(context.Context, *ProductId) (*RemoveMessage, error)
 	RemoveCategory(context.Context, *CategoryId) (*RemoveMessage, error)
@@ -209,6 +222,9 @@ func (UnimplementedProductsServiceServer) CreateSubcategory(context.Context, *Ne
 }
 func (UnimplementedProductsServiceServer) ChangeProduct(context.Context, *ReturnNewProduct) (*ReturnNewProduct, error) {
 	return nil, status.Error(codes.Unimplemented, "method ChangeProduct not implemented")
+}
+func (UnimplementedProductsServiceServer) ChangeSubcategory(context.Context, *ReturnNewSubcategory) (*ReturnNewSubcategory, error) {
+	return nil, status.Error(codes.Unimplemented, "method ChangeSubcategory not implemented")
 }
 func (UnimplementedProductsServiceServer) ChangeCategory(context.Context, *ReturnNewCategory) (*ReturnNewCategory, error) {
 	return nil, status.Error(codes.Unimplemented, "method ChangeCategory not implemented")
@@ -354,6 +370,24 @@ func _ProductsService_ChangeProduct_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductsService_ChangeSubcategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReturnNewSubcategory)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServiceServer).ChangeSubcategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductsService_ChangeSubcategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServiceServer).ChangeSubcategory(ctx, req.(*ReturnNewSubcategory))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ProductsService_ChangeCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReturnNewCategory)
 	if err := dec(in); err != nil {
@@ -474,6 +508,10 @@ var ProductsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ChangeProduct",
 			Handler:    _ProductsService_ChangeProduct_Handler,
+		},
+		{
+			MethodName: "ChangeSubcategory",
+			Handler:    _ProductsService_ChangeSubcategory_Handler,
 		},
 		{
 			MethodName: "ChangeCategory",

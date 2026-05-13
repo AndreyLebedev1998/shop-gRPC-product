@@ -1133,14 +1133,15 @@ const file_product_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n" +
 	"\vcategory_id\x18\x02 \x01(\x03R\n" +
 	"categoryId\x12#\n" +
-	"\rcategory_name\x18\x03 \x01(\tR\fcategoryName2\xc3\x06\n" +
+	"\rcategory_name\x18\x03 \x01(\tR\fcategoryName2\x98\a\n" +
 	"\x0fProductsService\x12O\n" +
 	"\x10GetProductsByIds\x12\x1c.products.GetProductsRequest\x1a\x1d.products.GetProductsResponse\x12m\n" +
 	"\x1aUpdateProductQuantityByIds\x12&.products.UpdateProductQuantityRequest\x1a'.products.UpdateProductQuantityResponse\x12A\n" +
 	"\rCreateProduct\x12\x14.products.NewProduct\x1a\x1a.products.ReturnNewProduct\x12D\n" +
 	"\x0eCreateCategory\x12\x15.products.NewCategory\x1a\x1b.products.ReturnNewCategory\x12M\n" +
 	"\x11CreateSubcategory\x12\x18.products.NewSubcategory\x1a\x1e.products.ReturnNewSubcategory\x12G\n" +
-	"\rChangeProduct\x12\x1a.products.ReturnNewProduct\x1a\x1a.products.ReturnNewProduct\x12J\n" +
+	"\rChangeProduct\x12\x1a.products.ReturnNewProduct\x1a\x1a.products.ReturnNewProduct\x12S\n" +
+	"\x11ChangeSubcategory\x12\x1e.products.ReturnNewSubcategory\x1a\x1e.products.ReturnNewSubcategory\x12J\n" +
 	"\x0eChangeCategory\x12\x1b.products.ReturnNewCategory\x1a\x1b.products.ReturnNewCategory\x12=\n" +
 	"\rRemoveProduct\x12\x13.products.ProductId\x1a\x17.products.RemoveMessage\x12?\n" +
 	"\x0eRemoveCategory\x12\x14.products.CategoryId\x1a\x17.products.RemoveMessage\x12?\n" +
@@ -1190,24 +1191,26 @@ var file_product_proto_depIdxs = []int32{
 	9,  // 6: products.ProductsService.CreateCategory:input_type -> products.NewCategory
 	16, // 7: products.ProductsService.CreateSubcategory:input_type -> products.NewSubcategory
 	8,  // 8: products.ProductsService.ChangeProduct:input_type -> products.ReturnNewProduct
-	10, // 9: products.ProductsService.ChangeCategory:input_type -> products.ReturnNewCategory
-	11, // 10: products.ProductsService.RemoveProduct:input_type -> products.ProductId
-	12, // 11: products.ProductsService.RemoveCategory:input_type -> products.CategoryId
-	14, // 12: products.ProductsService.GetProductName:input_type -> products.ProductName
-	12, // 13: products.ProductsService.RemoveSubcategory:input_type -> products.CategoryId
-	4,  // 14: products.ProductsService.GetProductsByIds:output_type -> products.GetProductsResponse
-	6,  // 15: products.ProductsService.UpdateProductQuantityByIds:output_type -> products.UpdateProductQuantityResponse
-	8,  // 16: products.ProductsService.CreateProduct:output_type -> products.ReturnNewProduct
-	10, // 17: products.ProductsService.CreateCategory:output_type -> products.ReturnNewCategory
-	17, // 18: products.ProductsService.CreateSubcategory:output_type -> products.ReturnNewSubcategory
-	8,  // 19: products.ProductsService.ChangeProduct:output_type -> products.ReturnNewProduct
-	10, // 20: products.ProductsService.ChangeCategory:output_type -> products.ReturnNewCategory
-	13, // 21: products.ProductsService.RemoveProduct:output_type -> products.RemoveMessage
-	13, // 22: products.ProductsService.RemoveCategory:output_type -> products.RemoveMessage
-	15, // 23: products.ProductsService.GetProductName:output_type -> products.ReturnResult
-	13, // 24: products.ProductsService.RemoveSubcategory:output_type -> products.RemoveMessage
-	14, // [14:25] is the sub-list for method output_type
-	3,  // [3:14] is the sub-list for method input_type
+	17, // 9: products.ProductsService.ChangeSubcategory:input_type -> products.ReturnNewSubcategory
+	10, // 10: products.ProductsService.ChangeCategory:input_type -> products.ReturnNewCategory
+	11, // 11: products.ProductsService.RemoveProduct:input_type -> products.ProductId
+	12, // 12: products.ProductsService.RemoveCategory:input_type -> products.CategoryId
+	14, // 13: products.ProductsService.GetProductName:input_type -> products.ProductName
+	12, // 14: products.ProductsService.RemoveSubcategory:input_type -> products.CategoryId
+	4,  // 15: products.ProductsService.GetProductsByIds:output_type -> products.GetProductsResponse
+	6,  // 16: products.ProductsService.UpdateProductQuantityByIds:output_type -> products.UpdateProductQuantityResponse
+	8,  // 17: products.ProductsService.CreateProduct:output_type -> products.ReturnNewProduct
+	10, // 18: products.ProductsService.CreateCategory:output_type -> products.ReturnNewCategory
+	17, // 19: products.ProductsService.CreateSubcategory:output_type -> products.ReturnNewSubcategory
+	8,  // 20: products.ProductsService.ChangeProduct:output_type -> products.ReturnNewProduct
+	17, // 21: products.ProductsService.ChangeSubcategory:output_type -> products.ReturnNewSubcategory
+	10, // 22: products.ProductsService.ChangeCategory:output_type -> products.ReturnNewCategory
+	13, // 23: products.ProductsService.RemoveProduct:output_type -> products.RemoveMessage
+	13, // 24: products.ProductsService.RemoveCategory:output_type -> products.RemoveMessage
+	15, // 25: products.ProductsService.GetProductName:output_type -> products.ReturnResult
+	13, // 26: products.ProductsService.RemoveSubcategory:output_type -> products.RemoveMessage
+	15, // [15:27] is the sub-list for method output_type
+	3,  // [3:15] is the sub-list for method input_type
 	3,  // [3:3] is the sub-list for extension type_name
 	3,  // [3:3] is the sub-list for extension extendee
 	0,  // [0:3] is the sub-list for field type_name
