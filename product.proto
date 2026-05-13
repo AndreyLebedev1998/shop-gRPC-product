@@ -51,6 +51,7 @@ message NewProduct {
     string image_url = 3;
     int64 availability_of_pieces = 4;
     double price = 5;
+    int64 subcategory_id = 7;
 }
 
 message ReturnNewProduct {
@@ -60,6 +61,7 @@ message ReturnNewProduct {
     string image_url = 4;
     int64 availability_of_pieces = 5;
     double price = 6;
+    int64 subcategory_id = 7;
 }
 
 message NewCategory {
@@ -93,14 +95,27 @@ message ReturnResult {
     bool result = 1;
 }
 
+message NewSubcategory {
+    int64 category_id = 1;
+    string category_name = 2;
+}
+
+message ReturnNewSubcategory {
+    int64 id = 1;
+    int64 category_id = 2;
+    string category_name = 3;
+}
+
 service ProductsService {
     rpc GetProductsByIds (GetProductsRequest) returns (GetProductsResponse);
     rpc UpdateProductQuantityByIds (UpdateProductQuantityRequest) returns (UpdateProductQuantityResponse);
     rpc CreateProduct (NewProduct) returns (ReturnNewProduct);
     rpc CreateCategory (NewCategory) returns (ReturnNewCategory);
+    rpc CreateSubcategory (NewSubcategory) returns (ReturnNewSubcategory);
     rpc ChangeProduct (ReturnNewProduct) returns (ReturnNewProduct);
     rpc ChangeCategory (ReturnNewCategory) returns (ReturnNewCategory);
     rpc RemoveProduct (ProductId) returns (RemoveMessage);
     rpc RemoveCategory (CategoryId) returns (RemoveMessage);
     rpc GetProductName (ProductName) returns (ReturnResult);
+    rpc RemoveSubcategory (CategoryId) returns (RemoveMessage);
 }

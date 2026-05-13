@@ -23,11 +23,13 @@ const (
 	ProductsService_UpdateProductQuantityByIds_FullMethodName = "/products.ProductsService/UpdateProductQuantityByIds"
 	ProductsService_CreateProduct_FullMethodName              = "/products.ProductsService/CreateProduct"
 	ProductsService_CreateCategory_FullMethodName             = "/products.ProductsService/CreateCategory"
+	ProductsService_CreateSubcategory_FullMethodName          = "/products.ProductsService/CreateSubcategory"
 	ProductsService_ChangeProduct_FullMethodName              = "/products.ProductsService/ChangeProduct"
 	ProductsService_ChangeCategory_FullMethodName             = "/products.ProductsService/ChangeCategory"
 	ProductsService_RemoveProduct_FullMethodName              = "/products.ProductsService/RemoveProduct"
 	ProductsService_RemoveCategory_FullMethodName             = "/products.ProductsService/RemoveCategory"
 	ProductsService_GetProductName_FullMethodName             = "/products.ProductsService/GetProductName"
+	ProductsService_RemoveSubcategory_FullMethodName          = "/products.ProductsService/RemoveSubcategory"
 )
 
 // ProductsServiceClient is the client API for ProductsService service.
@@ -38,11 +40,13 @@ type ProductsServiceClient interface {
 	UpdateProductQuantityByIds(ctx context.Context, in *UpdateProductQuantityRequest, opts ...grpc.CallOption) (*UpdateProductQuantityResponse, error)
 	CreateProduct(ctx context.Context, in *NewProduct, opts ...grpc.CallOption) (*ReturnNewProduct, error)
 	CreateCategory(ctx context.Context, in *NewCategory, opts ...grpc.CallOption) (*ReturnNewCategory, error)
+	CreateSubcategory(ctx context.Context, in *NewSubcategory, opts ...grpc.CallOption) (*ReturnNewSubcategory, error)
 	ChangeProduct(ctx context.Context, in *ReturnNewProduct, opts ...grpc.CallOption) (*ReturnNewProduct, error)
 	ChangeCategory(ctx context.Context, in *ReturnNewCategory, opts ...grpc.CallOption) (*ReturnNewCategory, error)
 	RemoveProduct(ctx context.Context, in *ProductId, opts ...grpc.CallOption) (*RemoveMessage, error)
 	RemoveCategory(ctx context.Context, in *CategoryId, opts ...grpc.CallOption) (*RemoveMessage, error)
 	GetProductName(ctx context.Context, in *ProductName, opts ...grpc.CallOption) (*ReturnResult, error)
+	RemoveSubcategory(ctx context.Context, in *CategoryId, opts ...grpc.CallOption) (*RemoveMessage, error)
 }
 
 type productsServiceClient struct {
@@ -87,6 +91,16 @@ func (c *productsServiceClient) CreateCategory(ctx context.Context, in *NewCateg
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ReturnNewCategory)
 	err := c.cc.Invoke(ctx, ProductsService_CreateCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsServiceClient) CreateSubcategory(ctx context.Context, in *NewSubcategory, opts ...grpc.CallOption) (*ReturnNewSubcategory, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ReturnNewSubcategory)
+	err := c.cc.Invoke(ctx, ProductsService_CreateSubcategory_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -143,6 +157,16 @@ func (c *productsServiceClient) GetProductName(ctx context.Context, in *ProductN
 	return out, nil
 }
 
+func (c *productsServiceClient) RemoveSubcategory(ctx context.Context, in *CategoryId, opts ...grpc.CallOption) (*RemoveMessage, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveMessage)
+	err := c.cc.Invoke(ctx, ProductsService_RemoveSubcategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductsServiceServer is the server API for ProductsService service.
 // All implementations must embed UnimplementedProductsServiceServer
 // for forward compatibility.
@@ -151,11 +175,13 @@ type ProductsServiceServer interface {
 	UpdateProductQuantityByIds(context.Context, *UpdateProductQuantityRequest) (*UpdateProductQuantityResponse, error)
 	CreateProduct(context.Context, *NewProduct) (*ReturnNewProduct, error)
 	CreateCategory(context.Context, *NewCategory) (*ReturnNewCategory, error)
+	CreateSubcategory(context.Context, *NewSubcategory) (*ReturnNewSubcategory, error)
 	ChangeProduct(context.Context, *ReturnNewProduct) (*ReturnNewProduct, error)
 	ChangeCategory(context.Context, *ReturnNewCategory) (*ReturnNewCategory, error)
 	RemoveProduct(context.Context, *ProductId) (*RemoveMessage, error)
 	RemoveCategory(context.Context, *CategoryId) (*RemoveMessage, error)
 	GetProductName(context.Context, *ProductName) (*ReturnResult, error)
+	RemoveSubcategory(context.Context, *CategoryId) (*RemoveMessage, error)
 	mustEmbedUnimplementedProductsServiceServer()
 }
 
@@ -178,6 +204,9 @@ func (UnimplementedProductsServiceServer) CreateProduct(context.Context, *NewPro
 func (UnimplementedProductsServiceServer) CreateCategory(context.Context, *NewCategory) (*ReturnNewCategory, error) {
 	return nil, status.Error(codes.Unimplemented, "method CreateCategory not implemented")
 }
+func (UnimplementedProductsServiceServer) CreateSubcategory(context.Context, *NewSubcategory) (*ReturnNewSubcategory, error) {
+	return nil, status.Error(codes.Unimplemented, "method CreateSubcategory not implemented")
+}
 func (UnimplementedProductsServiceServer) ChangeProduct(context.Context, *ReturnNewProduct) (*ReturnNewProduct, error) {
 	return nil, status.Error(codes.Unimplemented, "method ChangeProduct not implemented")
 }
@@ -192,6 +221,9 @@ func (UnimplementedProductsServiceServer) RemoveCategory(context.Context, *Categ
 }
 func (UnimplementedProductsServiceServer) GetProductName(context.Context, *ProductName) (*ReturnResult, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetProductName not implemented")
+}
+func (UnimplementedProductsServiceServer) RemoveSubcategory(context.Context, *CategoryId) (*RemoveMessage, error) {
+	return nil, status.Error(codes.Unimplemented, "method RemoveSubcategory not implemented")
 }
 func (UnimplementedProductsServiceServer) mustEmbedUnimplementedProductsServiceServer() {}
 func (UnimplementedProductsServiceServer) testEmbeddedByValue()                         {}
@@ -286,6 +318,24 @@ func _ProductsService_CreateCategory_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductsService_CreateSubcategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NewSubcategory)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServiceServer).CreateSubcategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductsService_CreateSubcategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServiceServer).CreateSubcategory(ctx, req.(*NewSubcategory))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ProductsService_ChangeProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReturnNewProduct)
 	if err := dec(in); err != nil {
@@ -376,6 +426,24 @@ func _ProductsService_GetProductName_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductsService_RemoveSubcategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServiceServer).RemoveSubcategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProductsService_RemoveSubcategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServiceServer).RemoveSubcategory(ctx, req.(*CategoryId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductsService_ServiceDesc is the grpc.ServiceDesc for ProductsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -400,6 +468,10 @@ var ProductsService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ProductsService_CreateCategory_Handler,
 		},
 		{
+			MethodName: "CreateSubcategory",
+			Handler:    _ProductsService_CreateSubcategory_Handler,
+		},
+		{
 			MethodName: "ChangeProduct",
 			Handler:    _ProductsService_ChangeProduct_Handler,
 		},
@@ -418,6 +490,10 @@ var ProductsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProductName",
 			Handler:    _ProductsService_GetProductName_Handler,
+		},
+		{
+			MethodName: "RemoveSubcategory",
+			Handler:    _ProductsService_RemoveSubcategory_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
